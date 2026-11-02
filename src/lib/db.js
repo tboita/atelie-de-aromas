@@ -52,8 +52,11 @@ export async function substituirTudo(dados) {
 }
 
 /* Novidades dos dados iniciais: entram sozinhas na nuvem uma única vez, sem apagar nada */
-export const VERSAO_DADOS = 3
+export const VERSAO_DADOS = 4
 const NOVIDADES = [
+  /* v4: completa a nuvem com todos os dados do ateliê que ainda não estiverem lá */
+  { v: 4, c: 'receitas', todos: true }, { v: 4, c: 'estoque', todos: true }, { v: 4, c: 'compras', todos: true },
+  { v: 4, c: 'diario', todos: true }, { v: 4, c: 'velas', todos: true },
   { v: 3, c: 'velas', ids: ['v1-quentao', 'v1-laguna', 'v1-mar', 'v1-cafe', 'v1-fogueira', 't4-l1', 't4-l2', 'sala-v1', 'sala-v2'] },
   { v: 3, c: 'receitas', ids: ['caju-v1', 'ideia-curitiba', 'ideia-registro', 'ideia-blend'] }
 ]
@@ -63,11 +66,12 @@ export function marcarVersao() { try { localStorage.setItem(CHAVE_V, String(VERS
 
 export async function aplicarNovidades(atual) {
   const seed = (await import('./seed.json')).default
-  const novos = {}
+  const novos = {}; const vistos = {}
   for (const n of NOVIDADES.filter(x => x.v > versaoAplicada())) {
-    const tem = new Set((atual[n.c] || []).map(x => x.id))
-    const itens = n.ids.filter(id => !tem.has(id) && seed[n.c]?.[id]).map(id => ({ ...seed[n.c][id], id }))
-    for (const it of itens) await gravar(n.c, it)
+    const tem = vistos[n.c] = vistos[n.c] || new Set((atual[n.c] || []).map(x => x.id))
+    const ids = n.todos ? Object.keys(seed[n.c] || {}) : n.ids
+    const itens = ids.filter(id => !tem.has(id) && seed[n.c]?.[id]).map(id => ({ ...seed[n.c][id], id }))
+    for (const it of itens) { await gravar(n.c, it); tem.add(it.id) }
     if (itens.length) novos[n.c] = [...(novos[n.c] || []), ...itens]
   }
   marcarVersao()
