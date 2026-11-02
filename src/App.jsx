@@ -48,6 +48,13 @@ export default function App() {
     try {
       let d = await carregarTudo()
       const temDados = COLECOES.some(c => d[c].length)
+      if (!temDados) {
+        /* Primeira abertura: a nuvem está vazia, então entram os dados do ateliê */
+        const seed = (await import('./lib/seed.json')).default
+        d = { ...d, ...(await substituirTudo(seed)) }
+        marcarVersao()
+        toast('Dados do ateliê carregados na nuvem.')
+      }
       if (temDados && versaoAplicada() < VERSAO_DADOS) {
         const novos = await aplicarNovidades(d)
         const n = Object.values(novos).reduce((a, xs) => a + xs.length, 0)
