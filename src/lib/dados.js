@@ -73,4 +73,4 @@ export const fmt=n=>(Math.round(n*100)/100).toLocaleString('pt-BR',{maximumFract
 export const r1=n=>Math.round(n*10)/10;
 export function dose(g,un){const u=un==='ml'?'ml':'g';let s=u==='g'?`${fmt(g)} g · ${fmt(g)} ml`:`${fmt(g)} ml`;if(g>0&&g<=1.5)s+=` · ${Math.round(g*20)} gotas`;return s}
 export const hoje=()=>{const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,10)};
-export const ABAS=['circulo','receitas','velas','estoque','compras','diario'];
+export const ABAS=['circulo','receitas','guia','velas','estoque','compras','diario'];

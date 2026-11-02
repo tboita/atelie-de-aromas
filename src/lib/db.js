@@ -52,8 +52,9 @@ export async function substituirTudo(dados) {
 }
 
 /* Novidades dos dados iniciais: entram sozinhas na nuvem uma única vez, sem apagar nada */
-export const VERSAO_DADOS = 4
+export const VERSAO_DADOS = 5
 const NOVIDADES = [
+  { v: 5, c: 'velas', ids: ['sab-figo-v1', 'sab-caju-suave', 'sab-caju-v1'] },
   /* v4: completa a nuvem com todos os dados do ateliê que ainda não estiverem lá */
   { v: 4, c: 'receitas', todos: true }, { v: 4, c: 'estoque', todos: true }, { v: 4, c: 'compras', todos: true },
   { v: 4, c: 'diario', todos: true }, { v: 4, c: 'velas', todos: true },

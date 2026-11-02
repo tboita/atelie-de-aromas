@@ -81,7 +81,7 @@ export function analisarMistura(ess) {
   const lidas = ess.filter(x => x && x[0]).map(([nome, g]) => ({ nome, g: +g || 0, n: noteFor(nome) }))
   const tem = l => lidas.some(x => x.n && x.n.c.includes(l))
   const avisos = []
-  if (lidas.length === 1) avisos.push('Uma essência só: a vela tem um cheiro único, sem a evolução topo, coração e fundo.')
+  if (lidas.length === 1) avisos.push('Uma essência só: o cheiro fica único, sem a evolução topo, coração e fundo.')
   if (!tem('f')) avisos.push('Sem fundo: é a causa mais comum de cheiro fraco e que some rápido.')
   if (!tem('c') && lidas.length > 1) avisos.push('Sem coração: falta a ponte entre o topo e o fundo.')
   return { lidas, avisos }

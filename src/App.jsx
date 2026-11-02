@@ -11,17 +11,19 @@ import Diario from './components/Diario.jsx'
 import Editor from './components/Editor.jsx'
 import Bancada from './components/Bancada.jsx'
 import Velas from './components/Velas.jsx'
+import Guia from './components/Guia.jsx'
 
 const VAZIO = { receitas: [], estoque: [], compras: [], diario: [], velas: [] }
 const ICONES = {
   circulo: <><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="3.5" /><path d="M12 3v5.5M12 15.5V21M3 12h5.5M15.5 12H21" /></>,
   receitas: <><path d="M6 3h10l3 3v15H6z" /><path d="M9 9h7M9 13h7M9 17h4" /></>,
+  guia: <><path d="M5 4h11l3 3v13H5z" /><path d="M8 9l1.5 1.5L12 8M8 14l1.5 1.5L12 13M14 9.5h2M14 14.5h2" /></>,
   velas: <><path d="M7 10h10v10a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1z" /><path d="M12 10V7" /><path d="M12 3c1.2 1.4 1.5 2.2 0 4-1.5-1.8-1.2-2.6 0-4z" /></>,
   estoque: <><path d="M9 3h6M10 3v4l-4 5v8a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-8l-4-5V3" /><path d="M6 14h12" /></>,
   compras: <><path d="M5 8h14l-1.5 12h-11z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></>,
   diario: <><path d="M12 3c2 3 4 4.5 4 8a4 4 0 0 1-8 0c0-2 1-3 1.5-4 .5 1.5 1.5 2 2.5 2 0-2-.5-4 0-6z" /><path d="M8 21h8" /></>
 }
-const NOMES = { circulo: 'Círculo', receitas: 'Receitas', velas: 'Velas', estoque: 'Estoque', compras: 'Compras', diario: 'Diário' }
+const NOMES = { circulo: 'Círculo', receitas: 'Receitas', guia: 'Passo a passo', velas: 'Produção', estoque: 'Estoque', compras: 'Compras', diario: 'Diário' }
 const abaDoHash = () => { const h = location.hash.slice(1); return ABAS.includes(h) ? h : 'circulo' }
 
 export default function App() {
@@ -198,7 +200,7 @@ export default function App() {
           <nav aria-label="Seções">
             {ABAS.map(t => (
               <button key={t} aria-current={tab === t ? 'page' : 'false'} onClick={() => irPara(t)}>
-                <svg viewBox="0 0 24 24" aria-hidden="true">{ICONES[t]}</svg>{NOMES[t]}{t === 'diario' && <span className="lg">&nbsp;de testes</span>}
+                <svg viewBox="0 0 24 24" aria-hidden="true">{ICONES[t]}</svg>{t === 'guia' ? <><span className="sm">Passos</span><span className="lg">Passo a passo</span></> : NOMES[t]}{t === 'diario' && <span className="lg">&nbsp;de testes</span>}
               </button>
             ))}
           </nav>
@@ -219,6 +221,7 @@ export default function App() {
           onSalvarProp={acoesCirculo.salvarProp} onComprarProp={acoesCirculo.comprarProp} onAbrirReceita={acoesCirculo.abrirReceita} />}
         {tab === 'receitas' && <Receitas receitas={dados.receitas} estoque={dados.estoque} carregado={carregado || !configurado} filtros={filtros} setFiltros={setFiltros}
           escala={escala} setEscala={setEscala} confirmar={confirmar} acoes={acoesReceitas} />}
+        {tab === 'guia' && <Guia receitas={dados.receitas} onBancada={id => setBancada(id)} />}
         {tab === 'velas' && <Velas velas={dados.velas} receitas={dados.receitas} carregado={carregado || !configurado} confirmar={confirmar} acoes={acoesVelas} />}
         {tab === 'estoque' && <Estoque estoque={dados.estoque} receitas={dados.receitas} carregado={carregado || !configurado} confirmar={confirmar} acoes={acoesEstoque} toast={toast} />}
         {tab === 'compras' && <Compras receitas={dados.receitas} estoque={dados.estoque} compras={dados.compras} carregado={carregado || !configurado} confirmar={confirmar} acoes={acoesCompras} />}
