@@ -1,0 +1,9 @@
+Ateliê de Aromas · Velas da Memória
+
+Esta pasta é o app. Para instalar no celular:
+1. Publique a pasta inteira num endereço https (por exemplo, arrastando a pasta em app.netlify.com/drop).
+2. Abra o endereço no celular: Safari no iPhone, Chrome no Android.
+3. iPhone: Compartilhar > Adicionar à Tela de Início. Android: menu > Instalar app (ou Adicionar à tela inicial).
+
+Depois de aberto uma vez, o app funciona sem internet.
+Na primeira abertura: Estoque > Restaurar cópia > escolha atelie-de-aromas-dados.json. As receitas não ficam dentro do app publicado; ficam só no celular.
