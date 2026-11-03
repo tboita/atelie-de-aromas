@@ -224,3 +224,13 @@ nav svg{width:20px;height:20px;display:none;stroke:currentColor;fill:none;stroke
 nav .sm{display:none}
 @media (max-width:720px){nav .sm{display:inline}}
 .gd-cam.pir-t{border-color:var(--f0)} .gd-cam.pir-c{border-color:var(--f8)} .gd-cam.pir-f{border-color:var(--f4)}
+
+/* Calculadora */
+.calc{display:flex;flex-direction:column;gap:18px}
+.calc-bloco{border-top:1px solid var(--line);padding-top:12px}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;align-items:start}
+.calc input{font-size:16px;font-variant-numeric:tabular-nums}
+.calc-forte input{border-color:var(--accent);font-weight:600}
+.calc-total{border-top:2px solid var(--accent);padding-top:12px;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.calc-total b{font-family:var(--display);font-size:30px;font-weight:600;display:block}
+@media (max-width:720px){nav button{font-size:8.5px;letter-spacing:0}.calc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
